@@ -1,7 +1,16 @@
 sudo: required
 services:
     - docker
-    
-scripts:
+
+script:
     - docker build -t drissboumlik/node .
     - docker images drissboumlik/node
+
+before_deploy:
+    - docker login -u drissboumlik -p corticothropine
+
+deply:
+    provider: script
+    script: docker push drissboumlik/node
+    on:
+        branch: master
